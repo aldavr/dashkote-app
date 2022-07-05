@@ -6,7 +6,6 @@
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<name>selenium-test</name>
-	<url>http://jboss.org</url>
 
 
 	<repositories>
@@ -23,18 +22,18 @@
 		</repository>
 	</repositories>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>codehaus.org</id>
-			<name>CodeHaus Plugin Snapshots</name>
-			<url>http://snapshots.repository.codehaus.org</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
+<!--	<pluginRepositories>-->
+<!--		<pluginRepository>-->
+<!--			<id>codehaus.org</id>-->
+<!--			<name>CodeHaus Plugin Snapshots</name>-->
+<!--			<url>http://snapshots.repository.codehaus.org</url>-->
+<!--			<releases>-->
+<!--				<enabled>false</enabled>-->
+<!--			</releases>-->
+<!--			<snapshots>-->
+<!--			</snapshots>-->
+<!--		</pluginRepository>-->
+<!--	</pluginRepositories>-->
 
 	<build>
 		<finalName>seleniumTest</finalName>
@@ -42,8 +41,8 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>17</source>
+					<target>17</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -78,55 +77,18 @@
 					<name>!maven.test.skip</name>
 				</property>
 			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>selenium-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>start-server</goal>
-								</goals>
-								<configuration>
-									<background>true</background>
-									<debug>false</debug>
-									<port>8444</port>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
 		</profile>
 	</profiles>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>5.8</version>
-			<scope>test</scope>
-			<classifier>jdk15</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openqa.selenium.client-drivers</groupId>
-			<artifactId>selenium-java-client-driver</artifactId>
-			<version>1.0-beta-1</version>
+			<version>7.6.0</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.openqa.selenium.server</groupId>
-			<artifactId>selenium-server-coreless</artifactId>
-			<version>1.0-beta-1</version>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>jetty</groupId>
-					<artifactId>org.mortbay.jetty</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+
+
 	</dependencies>
 </project>
