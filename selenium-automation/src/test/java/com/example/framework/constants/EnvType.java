@@ -1,4 +1,4 @@
-package com.example.seleniumautomation.constants;
+package com.example.framework.constants;
 
 public enum EnvType {
     QA,

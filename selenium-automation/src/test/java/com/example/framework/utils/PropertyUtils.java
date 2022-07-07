@@ -1,4 +1,4 @@
-package com.example.seleniumautomation.utils;
+package com.example.framework.utils;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

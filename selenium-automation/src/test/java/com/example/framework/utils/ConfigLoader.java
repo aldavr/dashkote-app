@@ -1,6 +1,6 @@
-package com.example.seleniumautomation.utils;
+package com.example.framework.utils;
 
-import com.example.seleniumautomation.constants.EnvType;
+import com.example.framework.constants.EnvType;
 
 import java.util.Properties;
 
