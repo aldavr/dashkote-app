@@ -1,0 +1,47 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<!-- TestNG XML Reference: https://testng.org/doc/documentation-main.html#testng-xml-->
+
+<!-- Run from Terminal -->
+<!--          $ mvn clean test -DsuiteXmlFile=smokeTest.xml -->
+<!-- Local    $ mvn clean test -Dbrowser=chrome -->
+<!-- Grid     $ mvn clean test -Dgrid="http://localhost:4444" -->
+
+<!--Uses Extent Listener to create HTML report-->
+<suite name="SmokeTestSuite" verbose="1" thread-count="4" parallel="tests">
+<!--    <listeners>-->
+<!--        <listener class-name="com.example.framework.extentlisteners.ExtentListeners"/>-->
+<!--    </listeners>-->
+
+    <!-- Execute Parallel Tests using Chrome with 4 thread on Grid -->
+    <test name="Regression - Chrome" thread-count="4" parallel="methods">
+
+        <parameter name="browser" value="chrome"/>
+        <!-- You can enable below parameters if you running locally  -->
+        <!--    <parameter name="grid" value="http://localhost:4444"/> -->
+
+        <classes>
+            <!-- Executes all the test methods inside a class -->
+            <class name="com.example.framework.tests.LoginPageTest"/>
+
+            <!--  Run tests with selective methods by include or exclude -->
+            <!--    <class name="com.risk.lexisnexis.sdet.tests.ParallelTests">-->
+            <!--        <methods>-->
+            <!--            <include name="ParallelTestCase_01"/>-->
+            <!--            <include name="ParallelTestCase_02"/>-->
+            <!--            <exclude name="ParallelTestCase_03"/>-->
+            <!--            <include name="ParallelTestCase_04"/>-->
+            <!--        </methods>-->
+            <!--    </class>-->
+        </classes>
+    </test>
+
+    <!-- Execute Parallel Tests using Firefox with 4 thread on Grid -->
+    <!--        <test name="Regression - Firefox" thread-count="4" parallel="methods">-->
+    <!--            <parameter name="browser" value="firefox"/>-->
+    <!--            <classes>-->
+    <!--                <class name="com.risk.lexisnexis.sdet.tests.ParallelTests"/>-->
+    <!--            </classes>-->
+    <!--        </test>-->
+
+</suite>
