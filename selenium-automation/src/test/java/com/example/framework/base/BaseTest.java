@@ -1,19 +1,87 @@
 package com.example.framework.base;
 
 
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import com.example.framework.constants.DriverType;
+import com.example.framework.factory.abstractFactory.DriverManagerAbstract;
+import com.example.framework.factory.abstractFactory.DriverManagerFactoryAbstract;
+import com.example.framework.utils.CookieUtils;
+import io.restassured.http.Cookies;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.List;
 
 public class BaseTest {
 
-    @BeforeTest
-    public void beforeTest(){
-        System.out.println("Before Test");
+    private final ThreadLocal<DriverManagerAbstract> driverManager = new ThreadLocal<>();
+    private final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+
+    protected DriverManagerAbstract getDriverManager() {
+        return this.driverManager.get();
     }
 
-    @AfterTest
-    public void afterTest(){
-        System.out.println("After Test");
+    private void setDriverManager(DriverManagerAbstract driverManager) {
+        this.driverManager.set(driverManager);
+    }
+
+    protected WebDriver getDriver() {
+        return this.driver.get();
+    }
+
+    private void setDriver(WebDriver driver) {
+        this.driver.set(driver);
+    }
+
+    @Parameters({"browser", "grid"})
+    @BeforeMethod
+    public synchronized void startDriver(@Optional String browser, @Optional String grid) throws MalformedURLException {
+
+        browser = System.getProperty("browser", browser);
+        if (browser == null) browser = "CHROME";
+
+        setDriverManager(DriverManagerFactoryAbstract.getManager(DriverType.valueOf(browser)));
+        setDriver(getDriverManager().getDriver());
+        System.out.println("CURRENT THREAD: " + Thread.currentThread().getId() + ", " + "DRIVER = " + getDriver());
+    }
+
+    @AfterMethod
+    public synchronized void quitDriver(@Optional String browser, ITestResult result) throws IOException, InterruptedException {
+
+        System.out.println("CURRENT THREAD: " + Thread.currentThread().getId() + ", " + "DRIVER = " + getDriver());
+
+        if (result.getStatus() == ITestResult.FAILURE) {
+            File destFile = new File(System.getProperty("user.dir") + "\\target\\reports\\screenshots\\" +
+                    result.getTestClass().getRealClass().getSimpleName() + "_" +
+                    result.getMethod().getMethodName() + ".png");
+
+            takeScreenshot(destFile);
+        }
+        getDriverManager().getDriver().quit();
+    }
+
+    public void injectCookiesToBrowser(Cookies cookies) {
+        List<Cookie> seleniumCookies = new CookieUtils().convertRestAssuredCookiesToSeleniumCookies(cookies);
+        for (Cookie cookie : seleniumCookies) {
+            System.out.println(cookie.toString());
+            getDriver().manage().addCookie(cookie);
+        }
+    }
+
+    private void takeScreenshot(File destFile) throws IOException, InterruptedException {
+        TakesScreenshot takesScreenshot = (TakesScreenshot) getDriver();
+        File srcFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(srcFile, destFile);
     }
 
 }

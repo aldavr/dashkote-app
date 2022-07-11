@@ -1,17 +1,28 @@
 package com.example.framework.tests;
 
 import com.example.framework.base.BaseTest;
+import com.example.framework.pages.HomePage;
 import com.example.framework.pages.LoginPage;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class LoginPageTest extends BaseTest {
 
-    @Test
-    public void loginPage_TestCase01(){
-        System.out.println("Running Login Page Test Case 01");
+    // Test naming convention: MethodName_When{{Precondition}}_Should{{ExpectedBehavior}}
+    //      login_withValidCredentials_shouldNavigateToHomePage
+    // Implement AAA (Arrange, Act and Assert) pattern for structuring tests
 
-        LoginPage loginPage = new LoginPage();
+    @Test(groups = {"smokeTest"})
+    public void login_withValidCredentials_shouldNavigateToHomePage() {
 
-        loginPage.signin();
+        // Arrange
+        LoginPage loginPage = new LoginPage(getDriver()).load();
+
+        // Act
+        HomePage homePage = loginPage.login();
+
+        // Assert
+        Assert.assertEquals(homePage.getTitle(), "Dashkote");
+
     }
 }
