@@ -44,4 +44,4 @@ jobs:
           chromedriver --version
           
       - name: Test
-        run: mvn -Dtest=ParallelTests -Dbrowser=docker
+        run: mvn clean test -Dtest=ParallelTests -Dbrowser=docker
