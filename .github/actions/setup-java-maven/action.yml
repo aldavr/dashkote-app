@@ -5,7 +5,7 @@ inputs:
   java-v:
     description: Specific Version of Java to use
     required: true
-    default: '11'
+    default: '17'
   maven-v:
     description: Specific Version of Maven to use
     required: true
