@@ -44,4 +44,6 @@ jobs:
           chromedriver --version
           
       - name: Test
-        run: mvn clean test -Dtest=ParallelTests -Dbrowser=docker
+        run: |
+          cd selenium-automation
+          mvn clean test -Dtest=ParallelTests -Dbrowser=docker
