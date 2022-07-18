@@ -16,6 +16,7 @@ import org.testng.annotations.Parameters;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 public class BaseTest {
@@ -34,7 +35,7 @@ public class BaseTest {
 
     @Parameters({"browser", "grid"})
     @BeforeMethod
-    public synchronized void startDriver(@Optional String browser, @Optional String grid) {
+    public synchronized void startDriver(@Optional String browser, @Optional String grid) throws MalformedURLException {
 
         // Initializes new WebDriver
         setDriver(new DriverManager().initializeDriver(browser));

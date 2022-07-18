@@ -21,4 +21,5 @@
 
 # Test Execution
 
-        mvn clean test -Denv=PRODUCTION -Dbrowser=chrome
+        $ mvn test -Denv=PRODUCTION -Dbrowser=chrome
+        $ mvn test -Dtest=ParallelTests -Dbrowser=docker
