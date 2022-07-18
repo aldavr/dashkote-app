@@ -29,21 +29,23 @@ jobs:
           mvn --version
           google-chrome --version
           chromedriver --version
-  Test:
-    needs: Build
-    runs-on: ubuntu-latest
-      
-    steps:
-      - name: Checkout source tree
-        uses: actions/checkout@v2
-
-      - name: Verify
-        run: |
-          mvn --version
-          google-chrome --version
-          chromedriver --version
-          
-      - name: Test
-        run: |
           cd selenium-automation
           mvn clean test -Dtest=ParallelTests -Dbrowser=docker
+#   Test:
+#     needs: Build
+#     runs-on: ubuntu-latest
+      
+#     steps:
+#       - name: Checkout source tree
+#         uses: actions/checkout@v2
+
+#       - name: Verify
+#         run: |
+#           mvn --version
+#           google-chrome --version
+#           chromedriver --version
+          
+#       - name: Test
+#         run: |
+#           cd selenium-automation
+#           mvn clean test -Dtest=ParallelTests -Dbrowser=docker
