@@ -1,9 +1,6 @@
 package com.example.framework.base;
 
 
-import com.example.framework.constants.DriverType;
-import com.example.framework.factory.abstractFactory.DriverManagerAbstract;
-import com.example.framework.factory.abstractFactory.DriverManagerFactoryAbstract;
 import com.example.framework.utils.CookieUtils;
 import io.restassured.http.Cookies;
 import org.apache.commons.io.FileUtils;
@@ -19,46 +16,36 @@ import org.testng.annotations.Parameters;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 
 public class BaseTest {
 
-    private final ThreadLocal<DriverManagerAbstract> driverManager = new ThreadLocal<>();
+    // Creates unique WebDriver instances to each thread.
     private final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-
-    protected DriverManagerAbstract getDriverManager() {
-        return this.driverManager.get();
-    }
-
-    private void setDriverManager(DriverManagerAbstract driverManager) {
-        this.driverManager.set(driverManager);
-    }
 
     protected WebDriver getDriver() {
         return this.driver.get();
     }
 
+    // Getter and Setter for WebDriver.
     private void setDriver(WebDriver driver) {
         this.driver.set(driver);
     }
 
     @Parameters({"browser", "grid"})
     @BeforeMethod
-    public synchronized void startDriver(@Optional String browser, @Optional String grid) throws MalformedURLException {
+    public synchronized void startDriver(@Optional String browser, @Optional String grid) {
 
-        browser = System.getProperty("browser", browser);
-        if (browser == null) browser = "CHROME";
+        // Initializes new WebDriver
+        setDriver(new DriverManager().initializeDriver(browser));
 
-        setDriverManager(DriverManagerFactoryAbstract.getManager(DriverType.valueOf(browser)));
-        setDriver(getDriverManager().getDriver());
-        System.out.println("CURRENT THREAD: " + Thread.currentThread().getId() + ", " + "DRIVER = " + getDriver());
+        System.out.println("STARTING NEW THREAD: " + Thread.currentThread().getId() + ", " + "DRIVER = " + getDriver());
     }
 
     @AfterMethod
     public synchronized void quitDriver(@Optional String browser, ITestResult result) throws IOException, InterruptedException {
 
-        System.out.println("CURRENT THREAD: " + Thread.currentThread().getId() + ", " + "DRIVER = " + getDriver());
+        System.out.println("ENDING THREAD: " + Thread.currentThread().getId() + ", " + "DRIVER = " + getDriver());
 
         if (result.getStatus() == ITestResult.FAILURE) {
             File destFile = new File(System.getProperty("user.dir") + "\\target\\reports\\screenshots\\" +
@@ -67,7 +54,10 @@ public class BaseTest {
 
             takeScreenshot(destFile);
         }
-        getDriverManager().getDriver().quit();
+
+        if (null != getDriver()) {
+            getDriver().quit();
+        }
     }
 
     public void injectCookiesToBrowser(Cookies cookies) {
@@ -83,5 +73,6 @@ public class BaseTest {
         File srcFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(srcFile, destFile);
     }
+
 
 }

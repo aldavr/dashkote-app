@@ -19,3 +19,6 @@
         choco install vscode-java-test -y
 
 
+# Test Execution
+
+        mvn clean test -Denv=PRODUCTION -Dbrowser=chrome

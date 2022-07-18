@@ -8,6 +8,13 @@ public class TestNGAnnotation {
     // TestNG Annotation Examples
     // ***************************************************************************************
 
+    // ***************************************************************************************
+    // Naming Conventions
+    // ***************************************************************************************
+    //      MethodName_When{{Precondition}}_Should{{ExpectedBehavior}}
+    //          login_withValidCredentials_shouldNavigateToHomePage
+    //      Implement AAA (Arrange, Act and Assert) pattern for structuring tests.
+
     // The annotated method will be run only once before all tests in this suite have run.
     @BeforeSuite
     public void beforeSuite() {

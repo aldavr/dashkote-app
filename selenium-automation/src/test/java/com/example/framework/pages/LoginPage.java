@@ -14,7 +14,9 @@ public class LoginPage extends BasePage {
     private final By Input_Textfield = By.id("");
     // ************************************************************************************************
     // Page Elements
-    // Naming conventions: elementButton, elementInput, elementLabel, elementLink, pageTitle
+    //      Naming conventions: elementButton, elementInput, elementLabel, elementLink, pageTitle
+    // Page Factory
+    //      https://www.selenium.dev/selenium/docs/api/java/org/openqa/selenium/support/FindBy.html
     // ************************************************************************************************
     @FindBy(id = "email")
     private WebElement emailInput;
@@ -37,7 +39,7 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage load() {
-        load("app/login");
+        load("/app/login");
         return this;
     }
 

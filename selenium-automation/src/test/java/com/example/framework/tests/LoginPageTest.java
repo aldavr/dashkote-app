@@ -8,11 +8,7 @@ import org.testng.annotations.Test;
 
 public class LoginPageTest extends BaseTest {
 
-    // Test naming convention: MethodName_When{{Precondition}}_Should{{ExpectedBehavior}}
-    //      login_withValidCredentials_shouldNavigateToHomePage
-    // Implement AAA (Arrange, Act and Assert) pattern for structuring tests
-
-    @Test(groups = {"smokeTest"})
+    @Test()
     public void login_withValidCredentials_shouldNavigateToHomePage() {
 
         // Arrange

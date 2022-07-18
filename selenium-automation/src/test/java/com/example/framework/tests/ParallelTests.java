@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 public class ParallelTests extends BaseTest {
 
-    @Test
+    @Test(groups = {"smokeTest"})
     public void ParallelTestCase_01() {
 
         // Arrange
@@ -22,7 +22,7 @@ public class ParallelTests extends BaseTest {
 
     }
 
-    @Test
+    @Test(groups = {"smokeTest"})
     public void ParallelTestCase_02() {
 
         // Arrange
@@ -35,7 +35,7 @@ public class ParallelTests extends BaseTest {
         Assert.assertEquals(homePage.getTitle(), "Dashkote");
     }
 
-    @Test
+    @Test(groups = {"regressionTest"})
     public void ParallelTestCase_03() {
 
         // Arrange
@@ -48,7 +48,7 @@ public class ParallelTests extends BaseTest {
         Assert.assertEquals(homePage.getTitle(), "Dashkote");
     }
 
-    @Test
+    @Test(groups = {"regressionTest"})
     public void ParallelTestCase_04() {
 
         // Arrange

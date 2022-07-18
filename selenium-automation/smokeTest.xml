@@ -4,44 +4,60 @@
 
 <!-- Run from Terminal -->
 <!--          $ mvn clean test -DsuiteXmlFile=smokeTest.xml -->
+<!-- Env      $ mvn clean test -Denv=PRODUCTION -->
 <!-- Local    $ mvn clean test -Dbrowser=chrome -->
 <!-- Grid     $ mvn clean test -Dgrid="http://localhost:4444" -->
+<!--          Or set it inside the test as parameter: <parameter name="grid" value="http://localhost:4444"/> -->
 
-<!--Uses Extent Listener to create HTML report-->
+
 <suite name="SmokeTestSuite" verbose="1" thread-count="4" parallel="tests">
-<!--    <listeners>-->
-<!--        <listener class-name="com.example.framework.extentlisteners.ExtentListeners"/>-->
-<!--    </listeners>-->
 
-    <!-- Execute Parallel Tests using Chrome with 4 thread on Grid -->
+
+    <!-- Execute Parallel Tests using Chrome with 4 thread -->
     <test name="Regression - Chrome" thread-count="4" parallel="methods">
 
         <parameter name="browser" value="chrome"/>
-        <!-- You can enable below parameters if you running locally  -->
-        <!--    <parameter name="grid" value="http://localhost:4444"/> -->
 
         <classes>
-            <!-- Executes all the test methods inside a class -->
-            <class name="com.example.framework.tests.LoginPageTest"/>
-
-            <!--  Run tests with selective methods by include or exclude -->
-            <!--    <class name="com.risk.lexisnexis.sdet.tests.ParallelTests">-->
-            <!--        <methods>-->
-            <!--            <include name="ParallelTestCase_01"/>-->
-            <!--            <include name="ParallelTestCase_02"/>-->
-            <!--            <exclude name="ParallelTestCase_03"/>-->
-            <!--            <include name="ParallelTestCase_04"/>-->
-            <!--        </methods>-->
-            <!--    </class>-->
+            <class name="com.example.framework.tests.ParallelTests"/>
         </classes>
+
     </test>
 
     <!-- Execute Parallel Tests using Firefox with 4 thread on Grid -->
-    <!--        <test name="Regression - Firefox" thread-count="4" parallel="methods">-->
-    <!--            <parameter name="browser" value="firefox"/>-->
-    <!--            <classes>-->
-    <!--                <class name="com.risk.lexisnexis.sdet.tests.ParallelTests"/>-->
-    <!--            </classes>-->
-    <!--        </test>-->
+    <!--    <test name="Regression - Firefox" thread-count="4" parallel="methods">-->
+    <!--        <parameter name="browser" value="firefox"/>-->
+    <!--        <classes>-->
+    <!--            <class name="com.example.framework.tests.ParallelTests"/>-->
+    <!--        </classes>-->
+    <!--    </test>-->
+
+    <!-- Run tests with selective methods by include or exclude -->
+    <!--    <test name="Regression - Chrome" thread-count="4" parallel="methods">-->
+    <!--        <parameter name="browser" value="chrome"/>-->
+    <!--        -->
+    <!--        <classes>-->
+    <!--            <class name="com.example.framework.tests.ParallelTests">-->
+    <!--                <methods>-->
+    <!--                    <include name="ParallelTestCase_01"/>-->
+    <!--                    <include name="ParallelTestCase_02"/>-->
+    <!--                    <exclude name="ParallelTestCase_03"/>-->
+    <!--                    <include name="ParallelTestCase_04"/>-->
+    <!--                </methods>-->
+    <!--            </class>-->
+    <!--        </classes>-->
+    <!--    </test>-->
+
+    <!-- Uses Extent Listener to create HTML report-->
+    <!--    <listeners>-->
+    <!--        <listener class-name="com.example.framework.extentlisteners.ExtentListeners"/>-->
+    <!--    </listeners>-->
+
+    <!-- TestNG Groups (set your test: @Test(groups = {"smokeTest"})) -->
+    <!--        <groups>-->
+    <!--            <run>-->
+    <!--                <include name="smokeTest"/>-->
+    <!--            </run>-->
+    <!--        </groups>-->
 
 </suite>

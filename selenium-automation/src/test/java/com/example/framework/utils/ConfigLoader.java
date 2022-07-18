@@ -10,7 +10,7 @@ public class ConfigLoader {
     private final Properties properties;
 
     private ConfigLoader() {
-        String env = System.getProperty("env", String.valueOf(EnvType.STAGE));
+        String env = System.getProperty("env", String.valueOf(EnvType.QA));
         switch (EnvType.valueOf(env)) {
             case QA -> properties = PropertyUtils.propertyLoader("src/test/resources/qa_config.properties");
             case STAGE -> properties = PropertyUtils.propertyLoader("src/test/resources/stage_config.properties");

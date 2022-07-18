@@ -101,11 +101,10 @@
                     <threadCount>6</threadCount>
                     -->
 
-                    <!--
                     <suiteXmlFiles>
-                        <suiteXmlFile>smoke.xml</suiteXmlFile>
+                        <suiteXmlFile>smokeTest.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    -->
+
                 </configuration>
             </plugin>
 
@@ -123,7 +122,7 @@
 </project>
 
 
-<!--Debugging-->
-<!--        1. Find out the Java version in Maven (make sure if you're using Java 17 and Java_Home is set to right jdk)-->
-<!--            mvn -version    -->
-<!--            echo $JAVA_HOME -->
+        <!--Debugging-->
+        <!--        1. Find out the Java version in Maven (make sure if you're using Java 17 and Java_Home is set to right jdk)-->
+        <!--            mvn -version    -->
+        <!--            echo $JAVA_HOME -->
