@@ -1,0 +1,29 @@
+name: Setup Java and Maven
+description: Reusable action for setting up Java and Maven
+
+inputs:
+  java-v:
+    description: Specific Version of Java to use
+    required: true
+    default: '11'
+  maven-v:
+    description: Specific Version of Maven to use
+    required: true
+    default: 3.8.5
+
+runs:
+  using: "composite"
+
+  steps:
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: ${{ inputs.java-v }}
+        distribution: 'adopt'
+        cache: 'maven'
+
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v4.3
+      with:
+        maven-version: ${{ inputs.maven-v }}

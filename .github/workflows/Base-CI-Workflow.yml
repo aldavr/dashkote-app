@@ -1,0 +1,47 @@
+name: Base CI Workflow
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+      
+    steps:
+      - name: Checkout source tree
+        uses: actions/checkout@v2
+
+      - name: Setup Java and Maven
+        uses: ./.github/actions/setup-java-maven
+        with:
+          java-v: '17'
+          maven-v: 3.8.5
+
+      - name: Setup ChromeDriver
+        uses: ./.github/actions/setup-chrome
+
+      - name: Verify
+        run: |
+          mvn --version
+          google-chrome --version
+          chromedriver --version
+  Test:
+    needs: Build
+    runs-on: ubuntu-latest
+      
+    steps:
+      - name: Checkout source tree
+        uses: actions/checkout@v2
+
+      - name: Verify
+        run: |
+          mvn --version
+          google-chrome --version
+          chromedriver --version
+          
+      - name: Test
+        run: mvn -Dtest=ParallelTests -Dbrowser=docker
