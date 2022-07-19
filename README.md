@@ -21,5 +21,10 @@
 
 # Test Execution
 
-        $ mvn test -Denv=PRODUCTION -Dbrowser=chrome
-        $ mvn test -Dtest=ParallelTests -Dbrowser=docker
+        $ mvn test -Denv=PRODUCTION -Dbrowser=Chrome
+        // GitHub Workflow
+        $ mvn test -Dtest=ParallelTests -Dbrowser=remoteChrome
+        // Docker
+        $ mvn test -Dtest=ParallelTests -Dbrowser=Docker
+        // Grid (docker run -d -p 4444:4444 --shm-size="2g" selenium/standalone-chrome)
+        $ mvn test -Dtest=ParallelTests -Dbrowser=Grid

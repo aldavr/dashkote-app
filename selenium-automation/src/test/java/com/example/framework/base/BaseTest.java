@@ -33,9 +33,9 @@ public class BaseTest {
         this.driver.set(driver);
     }
 
-    @Parameters({"browser", "grid"})
+    @Parameters({"browser"})
     @BeforeMethod
-    public synchronized void startDriver(@Optional String browser, @Optional String grid) throws MalformedURLException {
+    public synchronized void startDriver(@Optional String browser) throws MalformedURLException {
 
         // Initializes new WebDriver
         setDriver(new DriverManager().initializeDriver(browser));

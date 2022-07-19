@@ -26,14 +26,17 @@ public class DriverManager {
         switch (DriverType.valueOf(browser.toLowerCase())) {
             case chrome -> {
                 WebDriverManager.chromedriver().cachePath("Drivers").setup();
-                driver = new ChromeDriver(chromeOptions());
+                driver = new ChromeDriver();
             }
             case firefox -> {
                 WebDriverManager.firefoxdriver().cachePath("Drivers").setup();
                 driver = new FirefoxDriver();
             }
             case remotechrome -> {
-
+                WebDriverManager.chromedriver().cachePath("Drivers").setup();
+                driver = new ChromeDriver(chromeOptions());
+            }
+            case grid -> {
                 driver = new RemoteWebDriver(new URL("http://localhost:4444"), chromeOptions());
 
                 /*
@@ -41,7 +44,6 @@ public class DriverManager {
                 WebDriverManager wdm = WebDriverManager.chromedriver().browserInDocker().browserVersion("100");
                 driver = wdm.create();
                  */
-
             }
             default -> throw new IllegalStateException("Invalid browser name: " + browser);
         }
