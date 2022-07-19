@@ -32,7 +32,7 @@ public class DriverManager {
                 WebDriverManager.firefoxdriver().cachePath("Drivers").setup();
                 driver = new FirefoxDriver();
             }
-            case docker -> {
+            case remotechrome -> {
 
                 driver = new RemoteWebDriver(new URL("http://localhost:4444"), chromeOptions());
 
