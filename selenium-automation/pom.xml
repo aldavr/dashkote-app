@@ -6,7 +6,7 @@
 
     <groupId>com.example</groupId>
     <artifactId>selenium-automation</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>selenium-automation</name>
 
     <properties>
@@ -90,17 +90,17 @@
     <build>
         <plugins>
 
+            <!-- Maven Surefire Plugin
+            https://maven.apache.org/surefire/maven-surefire-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
                 <configuration>
-
                     <!--
                     <parallel>methods</parallel>
                     <threadCount>6</threadCount>
                     -->
-
                     <suiteXmlFiles>
                         <suiteXmlFile>smokeTest.xml</suiteXmlFile>
                     </suiteXmlFiles>
@@ -108,14 +108,62 @@
                 </configuration>
             </plugin>
 
+            <!--Maven Jar plugin-->
             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+
+            <!--Copies dependencies into traget/libs folder-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/libs
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Maven Compiler plugin-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <!--                <configuration>-->
+                <!--                    <compilerVersion>1.8</compilerVersion>-->
+                <!--                    <source>1.8</source>-->
+                <!--                    <target>1.8</target>-->
+                <!--                    <testSource>1.8</testSource>-->
+                <!--                    <testTarget>1.8</testTarget>-->
+                <!--                </configuration>-->
+            </plugin>
+
+            <!--            <plugin>-->
+            <!--                <artifactId>maven-assembly-plugin</artifactId>-->
+            <!--                <configuration>-->
+            <!--                    <descriptorRefs>-->
+            <!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
+            <!--                    </descriptorRefs>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
 
         </plugins>
     </build>

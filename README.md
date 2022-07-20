@@ -28,3 +28,9 @@
         $ mvn test -Dtest=ParallelTests -Dbrowser=Docker
         // Grid (docker run -d -p 4444:4444 --shm-size="2g" selenium/standalone-chrome)
         $ mvn test -Dtest=ParallelTests -Dbrowser=Grid
+
+# Build Java Package
+
+        $ mvn clean package -DskipTests
+        // Run (execute inside target directory)
+        $ java -cp selenium-automation-1.0-tests.jar:selenium-automation-1.0.jar:libs/* org.testng.TestNG ../smokeTest.xml
