@@ -33,4 +33,4 @@
 
         $ mvn clean package -DskipTests
         // Run (execute inside target directory)
-        $ java -cp selenium-automation-1.0-tests.jar:selenium-automation-1.0.jar:libs/* org.testng.TestNG ../smokeTest.xml
+        $ java -cp selenium-automation-tests.jar:selenium-automation.jar:libs/* org.testng.TestNG ../smokeTest.xml
