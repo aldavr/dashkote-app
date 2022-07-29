@@ -53,6 +53,7 @@ public class LoginPage extends BasePage {
      * @return Home page object
      */
     public HomePage login() {
+        driver.get(ConfigLoader.getInstance().getBaseUrl());
         User user = new User(ConfigLoader.getInstance().getUsername(),
                 ConfigLoader.getInstance().getPassword());
         enterUsername(user.getUsername());
