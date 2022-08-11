@@ -25,7 +25,7 @@ public class BasePage {
     }
 
 // ************************************************************************************************
-// Fluent Wait Methods
+// Wait Methods
 // ************************************************************************************************
 
     // An expectation for checking an element is visible and enabled such that you can click it.
@@ -51,7 +51,6 @@ public class BasePage {
     protected void waitUntilPageLoad() {
         wait.until(d -> ((JavascriptExecutor) d).executeScript("return (document.readyState === 'complete' || document.readyState === 'interactive')"));
     }
-
 
     public void waitUntillPageCompletedLoading() {
         try {
@@ -83,6 +82,10 @@ public class BasePage {
         }
     }
 
+
+// ************************************************************************************************
+// Generic Methods
+// ************************************************************************************************
     // Clicks on an element, waits for element is visible and enabled such that you can click it.
     protected void Click(WebElement element) {
         try {

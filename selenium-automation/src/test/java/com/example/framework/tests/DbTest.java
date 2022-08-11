@@ -5,27 +5,28 @@ import java.sql.*;
 
 public class DbTest {
 
-/*
-Prerequisites
+    /*
+    Prerequisites
 
-- Spin up SQL container on Docker.
-        docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" \
-                -p 1433:1433 --name sql1 --hostname sql1 \
-                -d mcr.microsoft.com/mssql/server:2019-latest
-- Add Dependencies into POM.
-        <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
-        <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <version>10.2.1.jre17</version>
-        </dependency>
-*/
+    - Spin up SQL container on Docker.
+            docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=<YourStrong@Passw0rd>" \
+                    -p 1433:1433 --name sql1 --hostname sql1 \
+                    -d mcr.microsoft.com/mssql/server:2019-latest
+    - Add Dependencies into POM.
+            <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
+            <dependency>
+                <groupId>com.microsoft.sqlserver</groupId>
+                <artifactId>mssql-jdbc</artifactId>
+                <version>10.2.1.jre17</version>
+            </dependency>
+    */
+
+    String query = "SELECT *  FROM [TestDB].[dbo].[piiData];";
+    String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestDB;encrypt=true;trustServerCertificate=true;user=sa;password=<YourStrong@Passw0rd>";
+
 
     @Test
-    public void databaseTest() throws SQLException {
-
-        String query = "SELECT *  FROM [TestDB].[dbo].[piiData];";
-        String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=TestDB;encrypt=true;trustServerCertificate=true;user=sa;password=<YourStrong@Passw0rd>";
+    public void readingFromDatabaseTest() throws SQLException {
 
         // Load SQL Server JDBC driver and establish connection.
         try (Connection connection = DriverManager.getConnection(connectionUrl)) {
@@ -55,5 +56,4 @@ Prerequisites
         }
 
     }
-
 }
